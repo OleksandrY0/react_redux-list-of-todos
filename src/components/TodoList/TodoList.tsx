@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { setError, setTodos, startLoading } from '../../features/todos';
-import { getTodos } from '../../api';
 import { useDispatch } from 'react-redux';
 import { setCurrentTodo } from '../../features/currentTodo';
 
@@ -10,21 +8,6 @@ export const TodoList: React.FC = () => {
   const { items, loading, error } = useAppSelector(state => state.todos);
   const { query, status } = useAppSelector(state => state.filter);
   const currentTodo = useAppSelector(state => state.currentTodo);
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      dispatch(startLoading());
-      try {
-        const todos = await getTodos();
-
-        dispatch(setTodos(todos));
-      } catch {
-        dispatch(setError('Помилка завантаження'));
-      }
-    };
-
-    fetchTodos();
-  }, [dispatch]);
 
   const filteredTodos = items.filter(todo => {
     const matchesQuery = todo.title.toLowerCase().includes(query.toLowerCase());

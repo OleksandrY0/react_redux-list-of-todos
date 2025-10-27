@@ -16,13 +16,13 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setQuery(state, action: PayloadAction<string>) {
-      state.query = action.payload;
+      return { ...state, query: action.payload };
     },
     clearQuery(state) {
-      state.query = '';
+      return { ...state, query: '' };
     },
     setStatus(state, action: PayloadAction<Status>) {
-      state.status = action.payload;
+      return { ...state, status: action.payload };
     },
   },
 });
