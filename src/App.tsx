@@ -1,24 +1,10 @@
-import 'bulma/css/bulma.css';
-import '@fortawesome/fontawesome-free/css/all.css';
-import { Loader, TodoFilter, TodoList, TodoModal } from './components';
 import { useAppSelector } from './app/hooks';
-import { useEffect, useState } from 'react';
-import { getTodos } from './api';
-import { Todo } from './types/Todo';
+
+import { Loader, TodoFilter, TodoList, TodoModal } from './components';
 
 export const App = () => {
   const currentTodo = useAppSelector(state => state.currentTodo);
-
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    getTodos()
-      .then(setTodos)
-      .finally(() => setLoading(false));
-  }, []);
+  const { loading } = useAppSelector(state => state.todos);
 
   return (
     <>
